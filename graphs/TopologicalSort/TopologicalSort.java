@@ -2,13 +2,14 @@ package graphs.TopologicalSort;
 
 // A Java program to print topological sorting of a DAG 
 import java.util.*;
+import graphs.Graph;
 
 public class TopologicalSort {
 
-    public Graph g;
+    public Graph<Integer> g;
 
     public TopologicalSort() {
-        g = new Graph(6);
+        g = new Graph<>();
     }
 
     // A recursive function used by topologicalSort
@@ -43,12 +44,12 @@ public class TopologicalSort {
     public static void main(String args[]) {
         // Create a graph given in the above diagram
         TopologicalSort ts = new TopologicalSort();
-        ts.g.addEdge(5, 2);
-        ts.g.addEdge(5, 0);
-        ts.g.addEdge(4, 0);
-        ts.g.addEdge(4, 1);
-        ts.g.addEdge(2, 3);
-        ts.g.addEdge(3, 1);
+        ts.g.addDirectedEdge(5, 2);
+        ts.g.addDirectedEdge(5, 0);
+        ts.g.addDirectedEdge(4, 0);
+        ts.g.addDirectedEdge(4, 1);
+        ts.g.addDirectedEdge(2, 3);
+        ts.g.addDirectedEdge(3, 1);
 
         System.out.println("Following is a Topological " + "sort of the given graph");
         // Function Call

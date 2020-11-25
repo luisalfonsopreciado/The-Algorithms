@@ -1,13 +1,16 @@
 package graphs.TopologicalSort;
 
 import java.util.*;
+import java.util.Map.Entry;
+
+import graphs.Graph;
 
 public class KahnAlgorithm {
 
-    public Graph g;
+    public Graph<Integer> g;
 
     public KahnAlgorithm() {
-        g = new Graph(6);
+        g = new Graph<>();
     }
 
     // A recursive function used by topologicalSort
@@ -27,37 +30,39 @@ public class KahnAlgorithm {
         HashMap<Integer, Integer> inDegrees = new HashMap<>();
         Queue<Integer> queue = new LinkedList<>();
         int numTotalNodes = 0;
-        // Index to keep track of the current vertex
-        int i = 0;
 
-        for(List<Integer> vList: g.adj){
-            inDegrees.put(i, inDegrees.getOrDefault(i, 0));
-            for(int v : vList){
+        for (Entry<Integer, LinkedList<Integer>> entry : g.adj.entrySet()) {
+            LinkedList<Integer> vList = entry.getValue();
+            int currentVertex = entry.getKey();
+
+            inDegrees.put(currentVertex, inDegrees.getOrDefault(currentVertex, 0));
+            for (int v : vList) {
                 inDegrees.put(v, inDegrees.getOrDefault(v, 0) + 1);
                 numTotalNodes++;
             }
-            i++;
         }
-        
-        for(int v: inDegrees.keySet()){
-            if(inDegrees.get(v) > 0) continue;
+
+        for (int v : inDegrees.keySet()) {
+            if (inDegrees.get(v) > 0)
+                continue;
             queue.add(v);
         }
 
         int visitedNodes = 0;
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int v = queue.remove();
             System.out.print(v + " ");
-            for(int u : g.adj.get(v)){
+            for (int u : g.adj.get(v)) {
                 int inDeg = inDegrees.get(u) - 1;
-                if(inDeg == 0) queue.add(u);
+                if (inDeg == 0)
+                    queue.add(u);
                 inDegrees.put(u, inDeg);
             }
             visitedNodes++;
         }
 
-        if(visitedNodes != numTotalNodes) {
+        if (visitedNodes != numTotalNodes) {
             System.out.println("Graph is not a DAG");
         }
     }
@@ -66,12 +71,14 @@ public class KahnAlgorithm {
     public static void main(String args[]) {
         // Create a graph given in the above diagram
         KahnAlgorithm ka = new KahnAlgorithm();
-        ka.g.addEdge(5, 2);
-        ka.g.addEdge(5, 0);
-        ka.g.addEdge(4, 0);
-        ka.g.addEdge(4, 1);
-        ka.g.addEdge(2, 3);
-        ka.g.addEdge(3, 1);
+        ka.g.addDirectedEdge(5, 2);
+        ka.g.addDirectedEdge(5, 0);
+        ka.g.addDirectedEdge(4, 0);
+        ka.g.addDirectedEdge(4, 1);
+        ka.g.addDirectedEdge(2, 3);
+        ka.g.addDirectedEdge(3, 1);
+
+        System.out.println(ka.g);
 
         System.out.println("Following is a Topological " + "sort of the given graph");
         // Function Call
