@@ -25,7 +25,7 @@ public class BreadthFirstSearch {
             Integer curr = queue.remove();
             System.out.print(curr + " ");
 
-            for (int adj : g.adj.get(curr)) {
+            for (int adj : g.getNeighbors(curr)) {
                 if (visited.contains(adj))
                     continue;
                 visited.add(adj);
@@ -36,12 +36,12 @@ public class BreadthFirstSearch {
 
     public static void main(String[] args) {
         BreadthFirstSearch dfs = new BreadthFirstSearch();
-        dfs.g.addUndirectedEdge(5, 2);
-        dfs.g.addUndirectedEdge(5, 0);
-        dfs.g.addUndirectedEdge(4, 0);
-        dfs.g.addUndirectedEdge(4, 1);
-        dfs.g.addUndirectedEdge(2, 3);
-        dfs.g.addUndirectedEdge(3, 1);
+        dfs.g.addUndirectedEdge(5, 2, 1);
+        dfs.g.addUndirectedEdge(5, 0, 1);
+        dfs.g.addUndirectedEdge(4, 0, 1);
+        dfs.g.addUndirectedEdge(4, 1, 1);
+        dfs.g.addUndirectedEdge(2, 3, 1);
+        dfs.g.addUndirectedEdge(3, 1, 1);
 
         System.out.println("Following is a DFS " + "of the given graph");
         dfs.bfs(5);

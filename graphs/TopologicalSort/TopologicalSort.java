@@ -15,7 +15,7 @@ public class TopologicalSort {
     // A recursive function used by topologicalSort
     public void topologicalSortUtil(int v, HashSet<Integer> visited, Stack<Integer> stack) {
         visited.add(v);
-        for (int n : g.adj.get(v)) {
+        for (int n : g.getNeighbors(v)) {
             if (visited.contains(n))
                 continue;
             topologicalSortUtil(n, visited, stack);
@@ -44,12 +44,12 @@ public class TopologicalSort {
     public static void main(String args[]) {
         // Create a graph given in the above diagram
         TopologicalSort ts = new TopologicalSort();
-        ts.g.addDirectedEdge(5, 2);
-        ts.g.addDirectedEdge(5, 0);
-        ts.g.addDirectedEdge(4, 0);
-        ts.g.addDirectedEdge(4, 1);
-        ts.g.addDirectedEdge(2, 3);
-        ts.g.addDirectedEdge(3, 1);
+        ts.g.addDirectedEdge(5, 2, 1);
+        ts.g.addDirectedEdge(5, 0, 1);
+        ts.g.addDirectedEdge(4, 0, 1);
+        ts.g.addDirectedEdge(4, 1, 1);
+        ts.g.addDirectedEdge(2, 3, 1);
+        ts.g.addDirectedEdge(3, 1, 1);
 
         System.out.println("Following is a Topological " + "sort of the given graph");
         // Function Call

@@ -17,15 +17,16 @@ public class DepthFirstSearch {
         Stack<Integer> stack = new Stack<>();
         HashSet<Integer> visited = new HashSet<>();
         stack.push(start);
+        visited.add(start);
 
         while (!stack.isEmpty()) {
             int curr = stack.pop();
-            visited.add(curr);
             System.out.print(curr + " ");
 
-            for (int neighbor : g.adj.get(curr)) {
+            for (int neighbor : g.getNeighbors(curr)) {
                 if (visited.contains(neighbor))
                     continue;
+                visited.add(neighbor);
                 stack.push(neighbor);
             }
         }
@@ -36,12 +37,12 @@ public class DepthFirstSearch {
     public static void main(String[] args) {
         // Create a graph given in the above diagram
         DepthFirstSearch dfs = new DepthFirstSearch(6);
-        dfs.g.addUndirectedEdge(5, 2);
-        dfs.g.addUndirectedEdge(5, 0);
-        dfs.g.addUndirectedEdge(4, 0);
-        dfs.g.addUndirectedEdge(4, 1);
-        dfs.g.addUndirectedEdge(2, 3);
-        dfs.g.addUndirectedEdge(3, 1);
+        dfs.g.addUndirectedEdge(5, 2, 1);
+        dfs.g.addUndirectedEdge(5, 0, 1);
+        dfs.g.addUndirectedEdge(4, 0, 1);
+        dfs.g.addUndirectedEdge(4, 1, 1);
+        dfs.g.addUndirectedEdge(2, 3, 1);
+        dfs.g.addUndirectedEdge(3, 1, 1);
 
         System.out.println("Following is a DFS " + "of the given graph");
         dfs.dfs(5);
