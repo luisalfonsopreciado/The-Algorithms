@@ -35,15 +35,15 @@ public class BreadthFirstSearch {
     }
 
     public static void main(String[] args) {
-        BreadthFirstSearch dfs = new BreadthFirstSearch();
-        dfs.g.addUndirectedEdge(5, 2, 1);
-        dfs.g.addUndirectedEdge(5, 0, 1);
-        dfs.g.addUndirectedEdge(4, 0, 1);
-        dfs.g.addUndirectedEdge(4, 1, 1);
-        dfs.g.addUndirectedEdge(2, 3, 1);
-        dfs.g.addUndirectedEdge(3, 1, 1);
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
+        bfs.g.addUndirectedEdge(5, 2, 1);
+        bfs.g.addUndirectedEdge(5, 0, 1);
+        bfs.g.addUndirectedEdge(4, 0, 1);
+        bfs.g.addUndirectedEdge(4, 1, 1);
+        bfs.g.addUndirectedEdge(2, 3, 1);
+        bfs.g.addUndirectedEdge(3, 1, 1);
 
-        System.out.println("Following is a DFS " + "of the given graph");
-        dfs.bfs(5);
+        System.out.println("Following is a BFS " + "of the given graph");
+        bfs.bfs(5);
     }
 }
