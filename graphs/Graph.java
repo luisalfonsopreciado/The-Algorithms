@@ -5,10 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * implementation of Graph ADT.
+ */
 public class Graph<E> {
 
+    /**
+     * Internal Edge class.
+     */
     public static class Edge<E> {
-        int weight;
+        public int weight;
         public E dest;
 
         public Edge(E dest) {
@@ -41,6 +47,14 @@ public class Graph<E> {
      */
     public Graph(int size) {
         adj = new HashMap<>();
+    }
+
+    /**
+     * Returns the number of vertices present in the graph
+     * @return The number of vertices
+     */
+    public int getNumVertices(){
+        return adj.size();
     }
 
     /**
@@ -98,6 +112,21 @@ public class Graph<E> {
                 out.add(e);
         }
         return out;
+    }
+
+    /**
+     * Get the edge object between start and end
+     * @param start
+     * @param end
+     * @return edge
+     */
+    public Edge<E> getEdge(E start, E end){
+        if(!adj.containsKey(start)) return null;
+        List<Edge<E>> adjacent = adj.get(start);
+        for(Edge<E> e : adjacent){
+            if(e.dest == end) return e; 
+        }
+        return null;
     }
 
     public String toString() {
