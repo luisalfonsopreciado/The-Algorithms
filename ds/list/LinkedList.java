@@ -1,7 +1,7 @@
 package ds.list;
 
 public class LinkedList<T> {
-    private static class ListNode<T> {
+    public static class ListNode<T> {
         T val;
         ListNode<T> next;
         ListNode<T> prev;
