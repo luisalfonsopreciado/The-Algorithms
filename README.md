@@ -169,7 +169,7 @@ This is a collection of algorithms and data structures I've implemented in my ac
 
 ## Sequences
 
-- [Find longest common subsequence (dynamic programming)]()
+- [Find longest common subsequence (dynamic programming)](/problems/dp/LongestCommonSubsequence.java)
 - [Find longest increasing subsequence (dynamic programming)]()
 - [Find number of times a subsequence occurs in a sequence (dynamic programming)]()
 - [Find i-th element in a Fibonacci sequence]()
