@@ -2,6 +2,8 @@ package graphs.checkBipartite;
 
 import java.util.Queue;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.LinkedList;
 import graphs.Graph;
 
@@ -12,7 +14,7 @@ public class CheckBipartite {
      * no isolated nodes in the graph. In the code below, we always start with
      * source 0 and assume that vertices are visited from it.
      */
-    public static boolean isBipartite(Graph<Integer> g) {
+    public static boolean isBipartiteConnected(Graph<Integer> g) {
         int colors[] = new int[g.getNumVertices()];
         Arrays.fill(colors, -1);
 
@@ -38,6 +40,32 @@ public class CheckBipartite {
         return true;
     }
 
+    public static boolean isBipartite(Graph<Integer> g){
+        Set<Integer> vertices = g.adj.keySet();
+        Queue<Integer> queue = new LinkedList<>();
+        HashMap<Integer, Integer> colors = new HashMap<>();
+        HashMap<Integer, Integer> indices = new HashMap<>();
+        
+        for(int v : vertices){
+            if(colors[v] != -1) continue;
+
+            queue.add(v);
+            colors[v] = 0;
+
+            while(!queue.isEmpty()){
+                int curr = queue.remove();
+                for(int adj : g.getNeighbors(curr)){
+                    if(colors[adj] == colors[curr]) return false;
+                    colors[adj] = 1 - colors[curr];
+                }
+            }
+            
+            idx++;
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
         Graph<Integer> g = new Graph<>();
         g.addUndirectedEdge(0, 1, 1);
@@ -50,6 +78,6 @@ public class CheckBipartite {
 
         System.out.println(g);
 
-        System.out.println(isBipartite(g)); // false
+        System.out.println(isBipartiteConnected(g)); // false
     }
 }

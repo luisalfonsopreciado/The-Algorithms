@@ -22,6 +22,7 @@ This is a collection of algorithms and data structures I've implemented in my ac
 - [Sequences](#sequences)
 - [Sorts](#sorts)
 - [String Functions](#string-functions)
+- [Backtracking] (#backtracking)
 
 ## Data Structures
 
@@ -48,7 +49,7 @@ This is a collection of algorithms and data structures I've implemented in my ac
 - [Queue [backed by an array or a linked list]]()
 - [Radix Trie (associative array) [backed by a Patricia Trie]]()
 - [Red-Black Tree]()
-- [Segment Tree]()
+- [Segment Tree](ds/trees/segmentTree/SegmentTree.java)
 - [Skip List]()
 - [Splay Tree]()
 - [Stack [backed by an array or a linked list]]()
@@ -222,3 +223,7 @@ This is a collection of algorithms and data structures I've implemented in my ac
 
 - Find in lexicographically minimal string rotation
 - Find in lexicographically maximal string rotation
+
+## Backtracking
+
+- [N-Queens Problem](/problems/backtracking/NQueens.java)

@@ -1,5 +1,9 @@
 package algorithms.search;
 
+/**
+ * BinarySearch class demonstrates various implementations of binary search in a
+ * sorted array
+ */
 public class BinarySearch {
 
     // Search for index of target integere in sorted array in increasing orders

@@ -1,9 +1,12 @@
 package ds.trees.trie;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Implementation of a Prefix Trie Data Structure
+ * 
+ * @author Luis Preciado <luisapreciado99@gmail.com>
  */
 public class Trie {
 
@@ -13,10 +16,12 @@ public class Trie {
     class TrieNode {
         char val;
         boolean isEnd = false;
-        HashMap<Character, TrieNode> nextNodes;
+        HashMap<Character, TrieNode> children;
+        // Last Character of a word contains an index > 0
+        int index = -1;
 
         public TrieNode() {
-            nextNodes = new HashMap<>();
+            children = new HashMap<>();
         }
 
         public TrieNode(char val) {
@@ -25,10 +30,20 @@ public class Trie {
         }
     }
 
-    TrieNode root;
+    private TrieNode root;
+    private int size;
 
     public Trie() {
         root = new TrieNode();
+        size = 0;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public TrieNode getRoot() {
+        return root;
     }
 
     /**
@@ -40,15 +55,16 @@ public class Trie {
         TrieNode curr = root;
 
         for (char c : str.toCharArray()) {
-            if (curr.nextNodes.containsKey(c)) {
-                curr = curr.nextNodes.get(c);
+            if (curr.children.containsKey(c)) {
+                curr = curr.children.get(c);
                 continue;
             }
-            curr.nextNodes.put(c, new TrieNode(c));
-            curr = curr.nextNodes.get(c);
+            curr.children.put(c, new TrieNode(c));
+            curr = curr.children.get(c);
         }
 
         curr.isEnd = true;
+        curr.index = size++;
     }
 
     /**
@@ -62,9 +78,9 @@ public class Trie {
         TrieNode curr = root;
 
         for (char c : str.toCharArray()) {
-            if (!curr.nextNodes.containsKey(c))
+            if (!curr.children.containsKey(c))
                 return false;
-            curr = curr.nextNodes.get(c);
+            curr = curr.children.get(c);
         }
 
         return curr.isEnd;
@@ -81,20 +97,42 @@ public class Trie {
         TrieNode curr = root;
 
         for (char c : str.toCharArray()) {
-            if (!curr.nextNodes.containsKey(c))
+            if (!curr.children.containsKey(c))
                 return false;
-            curr = curr.nextNodes.get(c);
+            curr = curr.children.get(c);
         }
 
         return true;
     }
 
+    /**
+     * A Preorder traversal of the trie prints all words in sorted order
+     */
+    public void preorder() {
+        this.preorderUtil(root, new StringBuilder());
+    }
+
+    private void preorderUtil(TrieNode curr, StringBuilder builder) {
+        builder.append(curr.val);
+        if (curr.isEnd) {
+            System.out.println(curr.index + " " + builder);
+        }
+        for (Map.Entry<Character, TrieNode> entry : curr.children.entrySet()) {
+            preorderUtil(entry.getValue(), builder);
+        }
+        builder.deleteCharAt(builder.length() - 1);
+    }
+
     // Driver Code
     public static void main(String[] args) {
         Trie trie = new Trie();
+        trie.insert("ant");
         trie.insert("apple");
-        System.out.println(trie.containsWord("apple"));
-        System.out.println(trie.containsPrefix("a"));
+        trie.insert("ante");
+        trie.insert("anteater");
+        trie.insert("antelope");
+        trie.insert("antique");
+        trie.preorder();
     }
 
 }

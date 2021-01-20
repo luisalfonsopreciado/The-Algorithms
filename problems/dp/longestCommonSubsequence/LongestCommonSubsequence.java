@@ -1,6 +1,11 @@
-package problems.dp;
+package problems.dp.longestCommonSubsequence;
+
+/**
+ * @author Luis Preciado - luisapreciado99@gmail.com
+ */
 
 public class LongestCommonSubsequence {
+
     /**
      * Given two strings text1 and text2, returns the length of their longest common
      * subsequence.

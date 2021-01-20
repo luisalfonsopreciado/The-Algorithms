@@ -1,11 +1,10 @@
 package problems.RMQ;
 
 /**
- * Precompute class is a solution to the Range Minimum Sum Query Problem. The
- * time complexity to initialize the RMQ takes O(n^2) which uses Dynamic
- * Programming to compute the minimum between all of the possible ranges in the
- * input array. On the other hand, to query any given range would take O(1)
- * Time.
+ * Precompute class is a solution to the Range Minimum Sum Query Problem.
+ * 
+ * O(n^2) Time complexity to initialize the structure. 
+ * O(1) Time complexity for each query
  */
 public class Precompute implements RMQ {
     /**
@@ -14,12 +13,16 @@ public class Precompute implements RMQ {
     int[][] mat;
 
     public Precompute(int[] arr) {
+        // Initialize the matrix that holds the min for all possible ranges
         mat = new int[arr.length][arr.length];
 
+        // When the upper and lower bounds of range are same, minimum is the value in
+        // the array
         for (int i = 0; i < arr.length; i++) {
             mat[i][i] = arr[i];
         }
 
+        // Displacement
         int disp = 1;
 
         while (disp < arr.length) {
@@ -38,11 +41,5 @@ public class Precompute implements RMQ {
         if (hi < 0 || hi >= mat.length)
             return -1;
         return mat[lo][hi];
-    }
-
-    public static void main(String[] args) {
-        int[] arr = { 16, 18, 33, 98 };
-        RMQ rmq = new Precompute(arr);
-        System.out.println(rmq.query(1, 3));
     }
 }

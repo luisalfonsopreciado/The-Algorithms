@@ -5,7 +5,7 @@ package ds.trees.segmentTree;
  */
 public class SegmentTree {
     /**
-     * The array that store the tree's nodes
+     * The array that store the tree's nodes (Segment Tree)
      */
     int[] st;
 
@@ -29,14 +29,48 @@ public class SegmentTree {
         this.arr = arr.clone();
 
         // Height of segment tree is log2(n), below is the log base conversion
-        int x = (int) (Math.ceil(Math.log(n) / Math.log(2)));
+        int x = log2(n);
 
-        // Maximum size of the segment tree
+        // Maximum size of the segment tree is 2 * (2^n - 1)
         int max_size = 2 * (int) Math.pow(2, x) - 1;
 
         st = new int[max_size];
 
         constructSTUtil(arr, 0, 0, n - 1);
+    }
+
+    /**
+     * A recursive function that construct Segment tree for array [ss..se] si is
+     * index of current node in segment tree
+     * 
+     * @param arr
+     * @param ss
+     * @param se
+     * @param si
+     * @return
+     */
+    public int constructSTUtil(int arr[], int si, int lo, int hi) {
+        // We have reached a leaf node
+        if (lo == hi) {
+            st[si] = arr[lo];
+            return arr[lo];
+        }
+
+        int mid = lo + (hi - lo) / 2;
+
+        st[si] = constructSTUtil(arr, getLeftIndex(si), lo, mid) + constructSTUtil(arr, getRightIndex(si), mid + 1, hi);
+
+        return st[si];
+    }
+
+    /**
+     * Log Base two
+     * 
+     * @param n
+     * @return
+     */
+    private int log2(int n) {
+        return (int) (Math.ceil(Math.log(n) / Math.log(2)));
     }
 
     /**
@@ -80,30 +114,6 @@ public class SegmentTree {
             sum += getSumUtil(getRightIndex(si), mid + 1, Math.max(mid, hi), mid + 1, sh);
         }
         return sum;
-    }
-
-    /**
-     * A recursive function that construct Segment tree for array [ss..se] si is
-     * index of current node in segment tree
-     * 
-     * @param arr
-     * @param ss
-     * @param se
-     * @param si
-     * @return
-     */
-    public int constructSTUtil(int arr[], int si, int lo, int hi) {
-        // We have reached a leaf node
-        if (lo == hi) {
-            st[si] = arr[lo];
-            return arr[lo];
-        }
-
-        int mid = lo + (hi - lo) / 2;
-
-        st[si] = constructSTUtil(arr, getLeftIndex(si), lo, mid) + constructSTUtil(arr, getRightIndex(si), mid + 1, hi);
-
-        return st[si];
     }
 
     /**

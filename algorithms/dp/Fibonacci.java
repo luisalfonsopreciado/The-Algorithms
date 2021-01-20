@@ -80,7 +80,7 @@ public class Fibonacci {
 
     public static void main(String[] args) {
         Fibonacci f = new Fibonacci();
-        System.out.println(f.fibBottomUp(0));
+        System.out.println(f.fibBottomUp(10));
         System.out.println(f.fibBottomUpImprovedSpace(43));
     }
 }

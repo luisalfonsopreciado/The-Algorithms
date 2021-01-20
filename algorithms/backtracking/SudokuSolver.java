@@ -100,6 +100,7 @@ public class SudokuSolver {
             }
             System.out.println("]");
         }
+        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -109,5 +110,12 @@ public class SudokuSolver {
 
         solve(board);
         printBoard(board);
+
+        int[][] board2 = { { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
+
+        solve(board2);
+        printBoard(board2);
     }
 }

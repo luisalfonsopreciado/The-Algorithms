@@ -14,7 +14,9 @@ public class KahnAlgorithm {
         g = new Graph<>();
     }
 
-    // A recursive function used by topologicalSort
+    /**
+     * A recursive function used by topologicalSort
+     */
     public void topologicalSortUtil(int v, HashSet<Integer> visited, Stack<Integer> stack) {
         visited.add(v);
         for (int n : g.getNeighbors(v)) {
@@ -25,13 +27,15 @@ public class KahnAlgorithm {
         stack.add(v);
     }
 
-    // The function to do Topological Sort.
-    // It uses recursive topologicalSortUtil()
+    /**
+     * Perform Topological sort on the graph
+     */
     public void topologicalSort() {
         HashMap<Integer, Integer> inDegrees = new HashMap<>();
         Queue<Integer> queue = new LinkedList<>();
         int numTotalNodes = 0;
 
+        // Build the inDegree HashMap
         for (Entry<Integer, LinkedList<Edge<Integer>>> entry : g.adj.entrySet()) {
             LinkedList<Edge<Integer>> vList = entry.getValue();
             int currentVertex = entry.getKey();
@@ -43,6 +47,7 @@ public class KahnAlgorithm {
             }
         }
 
+        // Add Elements with inDegree zero toe the queue
         for (int v : inDegrees.keySet()) {
             if (inDegrees.get(v) > 0)
                 continue;
