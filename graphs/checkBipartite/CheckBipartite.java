@@ -2,7 +2,7 @@ package graphs.checkBipartite;
 
 import java.util.Queue;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.LinkedList;
 import graphs.Graph;
@@ -10,9 +10,10 @@ import graphs.Graph;
 public class CheckBipartite {
 
     /**
-     * The below algorithm works only if the graph is connected, meaning, there are
-     * no isolated nodes in the graph. In the code below, we always start with
-     * source 0 and assume that vertices are visited from it.
+     * Check if a graph is bipartite, only works if the input graph is connected.
+     * 
+     * @param g
+     * @return
      */
     public static boolean isBipartiteConnected(Graph<Integer> g) {
         int colors[] = new int[g.getNumVertices()];
@@ -23,7 +24,7 @@ public class CheckBipartite {
         // Insert the first node in graph to queue
         queue.add(0);
         colors[0] = 1;
-        
+
         while (!queue.isEmpty()) {
             Integer curr = queue.remove();
 
@@ -40,27 +41,40 @@ public class CheckBipartite {
         return true;
     }
 
-    public static boolean isBipartite(Graph<Integer> g){
+    /**
+     * Check if an input graph is bipartite, works for connected and non-connected
+     * graphs.
+     * 
+     * @param g Graph Object
+     * @return
+     */
+    public static boolean isBipartite(Graph<Integer> g) {
         Set<Integer> vertices = g.adj.keySet();
         Queue<Integer> queue = new LinkedList<>();
         HashMap<Integer, Integer> colors = new HashMap<>();
-        HashMap<Integer, Integer> indices = new HashMap<>();
-        
-        for(int v : vertices){
-            if(colors[v] != -1) continue;
+
+        for (int v : vertices) {
+            // Skip the already colored vertices
+            if (colors.containsKey(v))
+                continue;
 
             queue.add(v);
-            colors[v] = 0;
+            // Color the starting node as 0
+            colors.put(v, 0);
 
-            while(!queue.isEmpty()){
+            while (!queue.isEmpty()) {
                 int curr = queue.remove();
-                for(int adj : g.getNeighbors(curr)){
-                    if(colors[adj] == colors[curr]) return false;
-                    colors[adj] = 1 - colors[curr];
+                int currColor = colors.get(curr);
+
+                for (int adj : g.getNeighbors(curr)) {
+                    int adjColor = colors.getOrDefault(adj, 1 - currColor);
+                    // If we cannot color the graph, return false
+                    if (adjColor != 1 - currColor)
+                        return false;
+                    colors.put(adj, adjColor);
+                    queue.add(adj);
                 }
             }
-            
-            idx++;
         }
 
         return true;
@@ -79,5 +93,6 @@ public class CheckBipartite {
         System.out.println(g);
 
         System.out.println(isBipartiteConnected(g)); // false
+        System.out.println(isBipartite(g)); // false
     }
 }
